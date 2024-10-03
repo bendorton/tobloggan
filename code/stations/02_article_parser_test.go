@@ -43,7 +43,7 @@ func (this *ArticleParserFixture) TestCorrectlyParsingArticle() {
 		Slug:  "/article/1",
 		Title: "Article 1",
 		Date:  t,
-		Body:  "\n\nThe contents of article 1.",
+		Body:  "\nThe contents of article 1.",
 	}
 	this.do(contracts.SourceFile(article1Content))
 	this.assertOutputs(want)
