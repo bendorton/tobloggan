@@ -18,32 +18,29 @@ func NewArticleValidator() contracts.Station {
 }
 
 func (this *ArticleValidator) Do(input any, output func(any)) {
-	switch input := input.(type) {
+	switch article := input.(type) {
 	case contracts.Article:
-		var err error = nil
 		// Validate Title
-		if input.Title == "" {
-			err = errInvalidTitle
+		if article.Title == "" {
+			output(errInvalidTitle)
+			return
 		}
 		// Validate Slug
-		for i := range input.Slug {
-			if !validSlugCharacters.Contains(rune(input.Slug[i])) {
-				err = errInvalidSlug
-				break
+		for i := range article.Slug {
+			if !validSlugCharacters.Contains(rune(article.Slug[i])) {
+				output(errInvalidSlug)
+				return
+
 			}
 		}
-		// Validate Unique Slug (finally?)
-		if this.slugs.Contains(input.Slug) {
-			err = errDuplicateSlug
+		// Validate Unique Slug
+		if this.slugs.Contains(article.Slug) {
+			output(errDuplicateSlug)
+			return
 		} else {
-			this.slugs.Add(input.Slug)
+			this.slugs.Add(article.Slug)
 		}
-
-		if err != nil {
-			output(err)
-		} else {
-			output(input)
-		}
+		output(article)
 	default:
 		output(input)
 	}
