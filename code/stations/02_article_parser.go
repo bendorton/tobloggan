@@ -22,7 +22,7 @@ func (this *ArticleParser) Do(input any, output func(any)) {
 	switch fileContents := input.(type) {
 	case contracts.SourceFile:
 		var article contracts.Article
-		parts := strings.Split(string(fileContents), "+++")
+		parts := strings.Split(string(fileContents), "+++\n")
 		if len(parts) != 2 {
 			output(contracts.Errorf("%w: %w", errMalformedContent, separatorMissing))
 			return
