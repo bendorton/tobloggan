@@ -34,7 +34,7 @@ func GenerateBlog(config Config) bool {
 		scanner   = stations.NewSourceScanner(config.FileSystemReader)
 		reader    = stations.NewSourceReader(config.FileSystemReader)
 		parser    = stations.NewArticleParser()
-		validator = contracts.Station(nil)             // stations.NewArticleValidator()
+		validator = stations.NewArticleValidator()
 		drafts    = stations.NewDraftRemoval()         // OPTIONAL
 		futures   = stations.NewFutureRemoval(started) // OPTIONAL
 		markdown  = stations.NewMarkdownConverter(config.MarkdownConverter)
