@@ -1,7 +1,31 @@
 package stations
 
-//type FutureRemoval struct{}
+import (
+	"time"
 
-//func (this *FutureRemoval) Do(input any, output func(any)) {
-//    TODO: given a contracts.Article, only output it if the Date field is not after the current time (passed into constructor).
-//}
+	"tobloggan/code/contracts"
+
+	"github.com/mdwhatcott/pipelines"
+)
+
+type FutureRemoval struct {
+	started time.Time
+}
+
+func NewFutureRemoval(started time.Time) pipelines.Station {
+	return &FutureRemoval{
+		started: started,
+	}
+}
+
+func (this *FutureRemoval) Do(input any, output func(any)) {
+	switch article := input.(type) {
+	case contracts.Article:
+		if this.started.Before(article.Date) {
+			return
+		}
+		output(article)
+	default:
+		output(input)
+	}
+}
