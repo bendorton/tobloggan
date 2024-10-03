@@ -38,7 +38,7 @@ func GenerateBlog(config Config) bool {
 		drafts    = stations.NewDraftRemoval()         // OPTIONAL
 		futures   = stations.NewFutureRemoval(started) // OPTIONAL
 		markdown  = stations.NewMarkdownConverter(config.MarkdownConverter)
-		listing   = contracts.Station(nil) // stations.NewListingRenderer(config.ListingTemplate)
+		listing   = stations.NewListingRenderer(config.ListingTemplate)
 		renderer  = contracts.Station(nil) // stations.NewArticleRenderer(config.ArticleTemplate)
 		baseURL   = contracts.Station(nil) // stations.NewBaseURLRewriter(config.BaseURL)
 		writer    = contracts.Station(nil) // stations.NewPageWriter(config.TargetDirectory, config.FileSystemWriter)
