@@ -31,8 +31,8 @@ func GenerateBlog(config Config) bool {
 		failure = new(atomic.Bool)
 		input   = make(chan any, 1)
 
-		scanner   = contracts.Station(nil) // stations.NewSourceScanner(config.FileSystemReader)
-		reader    = contracts.Station(nil) // stations.NewSourceReader(config.FileSystemReader)
+		scanner   = stations.NewSourceScanner(config.FileSystemReader)
+		reader    = stations.NewSourceReader(config.FileSystemReader)
 		parser    = contracts.Station(nil) // stations.NewArticleParser()
 		validator = contracts.Station(nil) // stations.NewArticleValidator()
 		drafts    = contracts.Station(nil) // stations.NewDraftRemoval()         // OPTIONAL
